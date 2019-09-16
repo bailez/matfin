@@ -5,8 +5,25 @@ class Capitalize:
         
         self.params = [interest,periods,present_value,future_value]
     
-    def _check_params(self):
-        pass
+    def _check_params(self, debug):
+        try:
+            map(float,self.params)
+        except ValueError:
+            if debug:
+                print('Non-number type used.')
+            return ValueError
+        except TypeError:
+            c = 0
+            for i in self.params:
+                if i == None:
+                    c =+ 1
+            if c !=1:
+                if debug:
+                    print('Missing parameters.')
+                return TypeError
+
+        
+
 
     def simple(self, debug=False):
         # S = P(1 + i * n)
