@@ -1,2 +1,3 @@
 import matfin
-matfin.abcd()
+
+matfin.Capitalize().compound()

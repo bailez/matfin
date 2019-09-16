@@ -1,4 +1,4 @@
-class Capitalize():
+class Capitalize:
     def __init__(self, interest= None, payment= None, periods = None, present_value = None, future_value = None):
         self.r = interest
         self.p = payment

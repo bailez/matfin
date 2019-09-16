@@ -1,1 +1,1 @@
-from .matfin import Classe, abcd
+from .matfin import Capitalize
