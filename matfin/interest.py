@@ -1,4 +1,5 @@
 import math
+
 class Interest:
 
     def __init__(self, rate = None, periods = None, 
@@ -62,3 +63,9 @@ class Interest:
         else:
             raise TypeError('Capitalize.compound() takes 3 positional arguments but 4 were given')       
         return result
+
+class FrequencyAjustment:
+
+    def __init__(self, rate_frequency, period_frequency):
+        self.r_freq = rate_frequency
+        self.p_freq = period_frequency

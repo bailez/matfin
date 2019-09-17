@@ -1,1 +1,1 @@
-from .matfin import Interest
+from .interest import *
