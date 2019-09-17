@@ -16,7 +16,7 @@ class Capitalize:
             if none_count !=1:
                 raise TypeError('There are missing arguments')
     
-    def _frequency(self,ifreq,nfreq, r):
+    def _frequency_dicrete(self,ifreq,nfreq, r):
         if ifreq == nfreq:
             pass
         elif ifreq == 'M' and nfreq == 'Y':
@@ -35,11 +35,10 @@ class Capitalize:
             raise ValueError('Invalid frequency')
         return r
 
-    def simple(self,interest_freq = None, period_freq = None):
+    def simple(self):
         #fv = pv(1 + r*n)
         self._check_params()
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
-        r = self._frequency(interest_freq,period_freq,r)
         if r == None:
             result = (fv/pv - 1)/n
         elif n == None:
@@ -57,22 +56,40 @@ class Capitalize:
         self._check_params()
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
         #print(interest_freq, period_freq)
-        r = self._frequency(interest_freq,period_freq,r)
+        r = self._frequency_dicrete(interest_freq,period_freq,r)
         if r == None:
-            result = (fv/pv - 1)/n
+            #fv = pv*(1+r)**n
+            #(1+r)**n = fv/pv
+            #(1+r) = (fv/pv)**(1/n)
+            result = (fv/pv)**(1/n) - 1
         elif n == None:
-            result = (fv/pv - 1)/r
+            #   ln(fv) =  ln(pv * (1+r)**n)
+            #   ln(fv) = ln(pv) + n*ln(1+r)
+            #   n*lnl(1+r) = ln(fv/pv)
+            #   n = ln(fv/pv)/ln(1 +r)
+            result = (math.log(fv/pv))/(math.log(1 + r))
         elif pv == None:
-            result = fv/((1 + r)**n)
+            pass
         elif fv == None:
-            result = pv*((1 + r)**n)
+            pass
         else:
             raise TypeError('Capitalize.compound() takes 3 positional arguments but 4 were given')       
         return result
 
-    def continuous(self, debug = False):
-        result = None
-        if debug:
-            print('Capitalização Composta Contínua')
+    def continuous(self, interest_freq = None, period_freq = None):
+        # fv = pv^(r*t)
+        self._check_params()
+        r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
+        print(r)
+        if r == None:
+            pass
+        elif n == None:
+            pass
+        elif pv == None:
+            pass
+        elif fv == None:
+            print(r, n)
+            result = pv*math.exp(r*n)
+        else:
+            raise TypeError('Capitalize.compound() takes 3 positional arguments but 4 were given')       
         return result
-        
