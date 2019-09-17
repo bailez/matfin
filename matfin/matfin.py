@@ -69,27 +69,30 @@ class Capitalize:
             #   n = ln(fv/pv)/ln(1 +r)
             result = (math.log(fv/pv))/(math.log(1 + r))
         elif pv == None:
-            pass
+            result = fv/(1 + r)**n
         elif fv == None:
-            pass
+            result = pv*((1+r)**n)
         else:
             raise TypeError('Capitalize.compound() takes 3 positional arguments but 4 were given')       
         return result
 
     def continuous(self, interest_freq = None, period_freq = None):
-        # fv = pv^(r*t)
+        # fv = pv*exp(r*t)
+        e = math.exp(1)
         self._check_params()
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
-        print(r)
         if r == None:
-            pass
+            result = math.log(fv/pv)/n
         elif n == None:
-            pass
+            #fv = pv*e**(r*n)
+            #ln(fv)= ln(pv) + (r*n)ln(e)
+            #(r*n) = ln(fv) - ln(pv)
+            #n = ln(fv/pv)/r
+            result = math.log(fv/pv)/r
         elif pv == None:
-            pass
+            result = fv/(e**(r*n))
         elif fv == None:
-            print(r, n)
-            result = pv*math.exp(r*n)
+            result = pv*(e**(r*n))
         else:
             raise TypeError('Capitalize.compound() takes 3 positional arguments but 4 were given')       
         return result
