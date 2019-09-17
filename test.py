@@ -1,3 +1,4 @@
 import matfin
 
-matfin.Capitalize().compound()
+#matfin.Capitalize().simple(debug=True)
+matfin.Capitalize().simple(debug=False)

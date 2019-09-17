@@ -7,26 +7,21 @@ class Capitalize:
     
     def _check_params(self, debug):
         try:
-            map(float,self.params)
+            list(map(float,self.params))
+            return True
         except ValueError:
-            if debug:
-                print('Non-number type used.')
-            return ValueError
+            raise ValueError()'A non-number argument was given')
         except TypeError:
             c = 0
             for i in self.params:
                 if i == None:
-                    c =+ 1
+                    c += 1
             if c !=1:
-                if debug:
-                    print('Missing parameters.')
-                return TypeError
-
-        
-
+                raise TypeError('There are missing arguments')
 
     def simple(self, debug=False):
         # S = P(1 + i * n)
+        _check_params(debug)
         result = None
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
         if r == None:
@@ -38,8 +33,7 @@ class Capitalize:
         elif fv == None:
             pass
         else:
-            if debug:
-                print('')
+            raise TypeError('Capitalize.simple() takes 3 positional arguments but 4 were given')
         if debug:
             print('Capitalização Simples')
         return result
