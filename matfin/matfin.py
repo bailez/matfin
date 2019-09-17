@@ -17,7 +17,15 @@ class Capitalize:
                 raise TypeError('There are missing arguments')
     
     def _frequency(self,ifreq,nfreq, r):
-        return ''
+        if ifreq == 'M' and nfreq == 'Y':
+            r = (1 + r)**(1/12) - 1
+        if ifreq == 'Y' and nfreq == 'M':
+            r = (1 + r)**(12) - 1
+        elif ifreq == nfreq:
+            pass
+        else:
+            raise ValueError('Invalid frequency')
+        return r
 
     def simple(self):
         #fv = pv(1 + r*n)
@@ -35,10 +43,11 @@ class Capitalize:
             raise TypeError('Capitalize.simple() takes 3 positional arguments but 4 were given')
         return result
 
-    def compound(self,interest_freq = 'Y', period_freq = 'M'):
+    def compound(self,interest_freq = None, period_freq = None):
         #pv = fv/(1 + r)^n 
         self._check_params()
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
+        #print(interest_freq, period_freq)
         r = self._frequency(interest_freq,period_freq,r)
         if r == None:
             result = (fv/pv - 1)/n
