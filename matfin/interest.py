@@ -64,3 +64,10 @@ class FrequencyAjustment:
         self.p_freq = period_frequency
         if rate == None and periods == None:
             raise TypeError('FrequencyAjustment needs either rate or periods values')
+        else:    
+            try:
+                list(map(float,[rate,periods]))
+            except ValueError:
+                raise ValueError('A non-number argument was given')
+            except TypeError:
+                pass
