@@ -19,7 +19,7 @@ class Capitalize:
     def _frequency(self,ifreq,nfreq, r):
         if ifreq == 'M' and nfreq == 'Y':
             r = (1 + r)**(1/12) - 1
-        if ifreq == 'Y' and nfreq == 'M':
+        elif ifreq == 'Y' and nfreq == 'M':
             r = (1 + r)**(12) - 1
         elif ifreq == nfreq:
             pass
