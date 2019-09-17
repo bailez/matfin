@@ -1,1 +1,1 @@
-from .matfin import Capitalize
+from .matfin import Interest
