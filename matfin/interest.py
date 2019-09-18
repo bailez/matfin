@@ -60,8 +60,8 @@ class Interest:
 class FrequencyAjustment:
 
     def __init__(self, rate_frequency, period_frequency, rate = None, periods = None):
-        self.r_freq = rate_frequency
-        self.p_freq = period_frequency
+        self.rate_frequecy = rate_frequency
+        self.period_frequency = period_frequency
         if rate == None and periods == None:
             raise TypeError('FrequencyAjustment needs either rate or periods values')
         else:    
