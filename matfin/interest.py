@@ -59,9 +59,12 @@ class Interest:
 
 class FrequencyAjustment:
 
-    def __init__(self, rate_frequency, period_frequency, rate = None, periods = None):
-        self.rate_frequecy = rate_frequency
-        self.period_frequency = period_frequency
+    def __init__(self, input_frequency, output_frequency, rate = None, periods = None):
+        self.input_frequecy = input_frequency
+        self.output_frequency = output_frequency
+        self.rate = rate
+        self.periods = periods
+        
         if rate == None and periods == None:
             raise TypeError('FrequencyAjustment needs either rate or periods values')
         else:    
@@ -71,3 +74,28 @@ class FrequencyAjustment:
                 raise ValueError('A non-number argument was given')
             except TypeError:
                 pass
+        
+        ms = 0.001; s = ms*1000; m = s*60; h = m*60; d = h*24
+        W = d*7; M = d*30 + 10*h; B = M*2; Q = M*3; S = M*6
+        Y = d*365; D = Y*10; C = Y*100; X = Y*1000
+
+        self.time = {
+            'ms': ms, 's' : s,
+            'm' : m, 'h' : h,
+            'd' : d, 'W' : W,
+            'M' : M, 'B' : B,
+            'Q' : Q, 'S' : S,
+            'Y' : Y, 'D' : D,
+            'C' : C, 'X' : X
+        }
+
+    def simple(self):
+        ifreq = self.time.get(self.input_frequecy)
+        ofreq = self.time.get(self.output_frequency)
+        r = self.rate
+        n = self.periods
+        k = ifreq/ofreq
+        if n == None:
+            return r/k
+        elif r == None:
+            return n*k
