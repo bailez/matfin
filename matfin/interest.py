@@ -4,6 +4,7 @@ class Interest:
 
     def __init__(self, rate = None, periods = None, 
                 present_value = None, future_value = None):
+    
         self.params = [rate,periods,present_value,future_value]
         try:
             list(map(float,self.params))
@@ -43,6 +44,7 @@ class Interest:
         return result
 
     def continuous(self):
+        
         e = math.exp(1)
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
         if r == None:
@@ -74,7 +76,7 @@ class FrequencyAjustment:
                 raise ValueError('A non-number argument was given')
             except TypeError:
                 pass
-        
+
         ms = 0.001; s = ms*1000; m = s*60; h = m*60; d = h*24
         W = d*7; M = d*30 + 10*h; B = M*2; Q = M*3; S = M*6
         Y = d*365; D = Y*10; C = Y*100; X = Y*1000
@@ -89,6 +91,12 @@ class FrequencyAjustment:
             'C' : C, 'X' : X
         }
 
+        for i in [input_frequency, output_frequency]:
+            if i in self.time:
+                pass
+            else:
+                raise TypeError('The frequency {} given is not valid'.format(i))
+
     def simple(self):
         ifreq = self.time.get(self.input_frequecy)
         ofreq = self.time.get(self.output_frequency)
@@ -99,3 +107,9 @@ class FrequencyAjustment:
             return r/k
         elif r == None:
             return n*k
+    
+    def compound(self):
+        ifreq = self.time.get(self.input_frequecy)
+        ofreq = self.time.get(self.output_frequency)
+        r = self.rate
+        n = self.periods
