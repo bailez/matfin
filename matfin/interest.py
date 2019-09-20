@@ -15,49 +15,51 @@ class Interest:
             if nargs !=1:
                 raise TypeError('Capitalize.simple() takes 3 positional arguments but {} were given'.format(nargs))
     
-    def simple(self):
+    def simple(self,input_frequency=None, output_frequency=None):
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
         if r == None:
-            result = (fv/pv - 1)/n
+            n = FrequencyAjustment(input_frequency,output_frequency,periods=n).simple()
+            return (fv/pv - 1)/n
         elif n == None:
-            result = (fv/pv - 1)/r
+            r = FrequencyAjustment(input_frequency,output_frequency,rate=r).simple()
+            return (fv/pv - 1)/r
         elif pv == None:
-            result = fv/(1 + r*n)
+            return fv/(1 + r*n)
         elif fv == None:
-            result = pv*(1 + r*n)
+            return pv*(1 + r*n)
         else:
             raise TypeError('Capitalize.simple() takes 3 positional arguments but 4 were given')
-        return result
 
-    def compound(self):
+    def compound(self, input_frequency=None, output_frequency=None):
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
         if r == None:
-            result = (fv/pv)**(1/n) - 1
+            n = FrequencyAjustment(input_frequency,output_frequency,periods=n).compound()
+            return (fv/pv)**(1/n) - 1
         elif n == None:
-            result = (math.log(fv/pv))/(math.log(1 + r))
+            r = FrequencyAjustment(input_frequency,output_frequency,rate=r).simple()
+            return (math.log(fv/pv))/(math.log(1 + r))
         elif pv == None:
-            result = fv/(1 + r)**n
+            return fv/(1 + r)**n
         elif fv == None:
-            result = pv*((1+r)**n)
+            return pv*((1+r)**n)
         else:
-            raise TypeError('Capitalize.compound() takes 3 positional arguments but 4 were given')       
-        return result
+            raise TypeError('Capitalize.compound() takes 3 positional arguments but 4 were given')
 
-    def continuous(self):
-        
+    def continuous(self, input_frequency=None, output_frequency=None):
         e = math.exp(1)
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
         if r == None:
-            result = math.log(fv/pv)/n
+            n = FrequencyAjustment(input_frequency,output_frequency,periods=n).continous()
+            return math.log(fv/pv)/n
         elif n == None:
-            result = math.log(fv/pv)/r
+            r = FrequencyAjustment(input_frequency,output_frequency,rate=r).continous()
+            return math.log(fv/pv)/r
         elif pv == None:
-            result = fv/(e**(r*n))
+            return fv/(e**(r*n))
         elif fv == None:
-            result = pv*(e**(r*n))
+            return pv*(e**(r*n))
         else:
             raise TypeError('Capitalize.compound() takes 3 positional arguments but 4 were given')       
-        return result
 
 class FrequencyAjustment:
 
@@ -76,6 +78,10 @@ class FrequencyAjustment:
                 raise ValueError('A non-number argument was given')
             except TypeError:
                 pass
+        
+        if input_frequency == None and output_frequency == None:
+            self.input_frequecy = 'Y'
+            self.output_frequency = 'Y'
 
         ms = 0.001; s = ms*1000; m = s*60; h = m*60; d = h*24
         W = d*7; M = d*30 + 10*h; B = M*2; Q = M*3; S = M*6
