@@ -9,7 +9,7 @@ class Interest:
         try:
             list(map(float,self.params))
         except ValueError:
-            raise ValueError('A non-number argument was given')
+            raise ValueError('A non-number was given to Interest()')
         except TypeError:
             nargs = 4 - sum(x is None for x in self.params)
             if nargs != 3:
