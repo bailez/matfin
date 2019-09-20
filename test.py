@@ -5,9 +5,14 @@ import matfin
 #x = matfin.Capitalize(interest=0.25,periods=3,future_value=250000).simple()
 
 cap = matfin.Interest
-x = cap(present_value= 150000,
-    rate=0.02,
-    future_value=600000
+x = cap(
+        future_value=106.83425,
+        periods=7,
+        rate=0.12
     )
-
-print(x.continuous())
+freq = matfin.FrequencyAjustment
+y = freq(input_frequency= 'M',
+        output_frequency= 'Y',
+        rate=0.015
+        )
+print(x.compound(interest_frequency='Y',period_frequency='M'))
