@@ -12,9 +12,10 @@ class Interest:
             raise ValueError('A non-number argument was given')
         except TypeError:
             nargs = 4 - sum(x is None for x in self.params)
-            if nargs !=1:
-                raise TypeError('Capitalize.simple() takes 3 positional arguments but {} were given'.format(nargs))
+            if nargs != 3:
+                raise TypeError('Interest.simple() takes 3 positional arguments but {} were given'.format(nargs))
     
+
     def simple(self,input_frequency=None, output_frequency=None):
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
         if r == None:
@@ -28,7 +29,7 @@ class Interest:
         elif fv == None:
             return pv*(1 + r*n)
         else:
-            raise TypeError('Capitalize.simple() takes 3 positional arguments but 4 were given')
+            raise TypeError('Interest.simple() takes 3 positional arguments but 4 were given')
 
     def compound(self, input_frequency=None, output_frequency=None):
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
@@ -43,7 +44,7 @@ class Interest:
         elif fv == None:
             return pv*((1+r)**n)
         else:
-            raise TypeError('Capitalize.compound() takes 3 positional arguments but 4 were given')
+            raise TypeError('Interest.compound() takes 3 positional arguments but 4 were given')
 
     def continuous(self, input_frequency=None, output_frequency=None):
         e = math.exp(1)
@@ -59,11 +60,15 @@ class Interest:
         elif fv == None:
             return pv*(e**(r*n))
         else:
-            raise TypeError('Capitalize.compound() takes 3 positional arguments but 4 were given')       
+            raise TypeError('Interest.compound() takes 3 positional arguments but 4 were given')       
 
 class FrequencyAjustment:
 
     def __init__(self, input_frequency, output_frequency, rate = None, periods = None):
+        if input_frequency == None and output_frequency == None:
+            input_frequency = 'Y'
+            output_frequency = 'Y'
+
         self.input_frequecy = input_frequency
         self.output_frequency = output_frequency
         self.rate = rate
@@ -78,11 +83,7 @@ class FrequencyAjustment:
                 raise ValueError('A non-number argument was given')
             except TypeError:
                 pass
-        
-        if input_frequency == None and output_frequency == None:
-            self.input_frequecy = 'Y'
-            self.output_frequency = 'Y'
-
+            
         ms = 0.001; s = ms*1000; m = s*60; h = m*60; d = h*24
         W = d*7; M = d*30 + 10*h; B = M*2; Q = M*3; S = M*6
         Y = d*365; D = Y*10; C = Y*100; X = Y*1000
@@ -98,10 +99,9 @@ class FrequencyAjustment:
         }
 
         for i in [input_frequency, output_frequency]:
-            if i in self.time:
-                pass
-            else:
+            if i not in self.time:
                 raise TypeError('The frequency {} given is not valid'.format(i))
+                
 
     def simple(self):
         ifreq = self.time.get(self.input_frequecy)
