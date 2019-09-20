@@ -15,7 +15,6 @@ class Interest:
             nargs = 4 - sum(x is None for x in self.params)
             if nargs != 3:
                 raise TypeError('Interest.simple() takes 3 positional arguments but {} were given'.format(nargs))
-    
 
     def simple(self, interest_frequency=None, period_frequency=None):
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
