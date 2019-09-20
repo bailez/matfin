@@ -100,8 +100,7 @@ class FrequencyAjustment:
     def simple(self):
         ifreq = self.time.get(self.input_frequecy)
         ofreq = self.time.get(self.output_frequency)
-        r = self.rate
-        n = self.periods
+        r = self.rate; n = self.periods
         k = ifreq/ofreq
         if n == None:
             return r/k
@@ -111,10 +110,19 @@ class FrequencyAjustment:
     def compound(self):
         ifreq = self.time.get(self.input_frequecy)
         ofreq = self.time.get(self.output_frequency)
-        r = self.rate
-        n = self.periods
+        r = self.rate; n = self.periods
         k = ifreq/ofreq
         if n == None:
             return ((1+r)**(1/k) - 1)
+        elif r == None:
+            return n*k
+    
+    def continous(self):
+        ifreq = self.time.get(self.input_frequecy)
+        ofreq = self.time.get(self.output_frequency)
+        r = self.rate; n = self.periods
+        k = ifreq/ofreq
+        if n == None:
+            return r*k
         elif r == None:
             return n*k
