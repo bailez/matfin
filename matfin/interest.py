@@ -5,7 +5,6 @@ class Interest:
 
     def __init__(self, rate = None, periods = None, 
                 present_value = None, future_value = None):
-    
         self.params = [rate,periods,present_value,future_value]
         try:
             list(map(float,self.params))

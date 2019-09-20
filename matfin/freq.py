@@ -4,12 +4,10 @@ class FrequencyAjustment:
         if input_frequency == None and output_frequency == None:
             input_frequency = 'Y'
             output_frequency = 'Y'
-
         self.input_frequecy = input_frequency
         self.output_frequency = output_frequency
         self.rate = rate
         self.periods = periods
-        
         if rate == None and periods == None:
             raise TypeError('FrequencyAjustment needs either rate or periods values')
         else:    
@@ -19,11 +17,9 @@ class FrequencyAjustment:
                 raise ValueError('A non-number argument was given')
             except TypeError:
                 pass
-
         ms = 0.001; s = ms*1000; m = s*60; h = m*60; d = h*24
         W = d*7; M = d*30 + 10*h; B = M*2; Q = M*3; S = M*6
         Y = d*365; D = Y*10; C = Y*100; X = Y*1000
-
         self.time = {
             'ms': ms, 's' : s,
             'm' : m, 'h' : h,
@@ -33,11 +29,9 @@ class FrequencyAjustment:
             'Y' : Y, 'D' : D,
             'C' : C, 'X' : X
         }
-
         for i in [input_frequency, output_frequency]:
             if i not in self.time:
-                raise TypeError('The frequency {} given is not valid'.format(i))
-                
+                raise TypeError('The frequency {} given is not valid'.format(i))      
 
     def simple(self):
         ifreq = self.time.get(self.input_frequecy)
