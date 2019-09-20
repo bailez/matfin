@@ -113,3 +113,8 @@ class FrequencyAjustment:
         ofreq = self.time.get(self.output_frequency)
         r = self.rate
         n = self.periods
+        k = ifreq/ofreq
+        if n == None:
+            return ((1+r)**(1/k) - 1)
+        elif r == None:
+            return n*k
