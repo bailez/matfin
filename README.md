@@ -1,5 +1,5 @@
 # matfin 0.0.2
-Financial Mathematics library with interest rate functions.
+Financial Mathematics package with interest rate functions.
 
 ## Instalation
  ``` pip install matfin```
