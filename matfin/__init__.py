@@ -1,3 +1,3 @@
-from .interest import *
-from .freq import *
-from .payseries import *
+from ._scripts.interest import *
+from ._scripts.freq import *
+from ._scripts.payseries import *

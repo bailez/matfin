@@ -1,4 +1,4 @@
-import math
+import math as _math
 from .freq import FrequencyAjustment
 
 class Interest:
@@ -39,7 +39,7 @@ class Interest:
         else:
             r = FrequencyAjustment(interest_frequency,period_frequency,rate=r).compound()
             if n == None:
-                return (math.log(fv/pv))/(math.log(1 + r))
+                return (_math.log(fv/pv))/(_math.log(1 + r))
             elif pv == None:
                 return fv/(1 + r)**n
             elif fv == None:
@@ -48,15 +48,15 @@ class Interest:
                 raise TypeError('Interest.compound() takes 3 positional arguments but 4 were given')
 
     def continuous(self, interest_frequency=None, period_frequency=None):
-        e = math.exp(1)
+        e = _math.exp(1)
         r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
         if r == None:
             n = FrequencyAjustment(period_frequency,interest_frequency,periods=n).continous()
-            return math.log(fv/pv)/n
+            return _math.log(fv/pv)/n
         else:
             r = FrequencyAjustment(interest_frequency,period_frequency,rate=r).continous()
             if n == None:
-                return math.log(fv/pv)/r
+                return _math.log(fv/pv)/r
             elif pv == None:
                 return fv/(e**(r*n))
             elif fv == None:
