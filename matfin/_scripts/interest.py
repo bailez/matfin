@@ -16,7 +16,7 @@ class Interest:
                 raise TypeError('Interest.simple() takes 3 positional arguments but {} were given'.format(nargs))
 
     def simple(self, interest_frequency=None, period_frequency=None):
-        r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
+        r, n, pv, fv = self.params
         if r == None:
             n = FrequencyAjustment(period_frequency,interest_frequency,periods=n).simple()
             return (fv/pv - 1)/n
@@ -32,7 +32,7 @@ class Interest:
                 raise TypeError('Interest.simple() takes 3 positional arguments but 4 were given')
 
     def compound(self, interest_frequency=None, period_frequency=None):
-        r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
+        r, n, pv, fv = self.params
         if r == None:
             n = FrequencyAjustment(period_frequency,interest_frequency,periods=n).compound()
             return (fv/pv)**(1/n) - 1
@@ -49,7 +49,7 @@ class Interest:
 
     def continuous(self, interest_frequency=None, period_frequency=None):
         e = _math.exp(1)
-        r, n, pv, fv = self.params[0], self.params[1], self.params[2], self.params[3]
+        r, n, pv, fv = self.params
         if r == None:
             n = FrequencyAjustment(period_frequency,interest_frequency,periods=n).continous()
             return _math.log(fv/pv)/n
