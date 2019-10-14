@@ -31,9 +31,3 @@ class PayementSeries:
         elif pv == None:
             #fv = pmt*(((1+i)**n -1)/i)
             #pv = fv*(1/(1+i)**n)
-            
-
-
-
-    def ante(self):
-        pass
