@@ -60,3 +60,21 @@
                 * Fluxos de caixa e inflação
         * TIRR
         * Tabela Price e Inflação
+* Capítulo 6: Análise de investimentos em ativos reais
+        * Análise de investimentos
+        * Taxa interna de retorno e função valor presente líquido
+                * Taxa interna de retorno (TIR)
+                        * Problemas da taxa interna de retorno
+                        * Comportamento temporal do rendimento e TIR
+                        * Método Newton-Raphson
+                * Taxa interna de retorno modificada (TIRM)
+                * Valor Presente Líquido
+        * Investimentos Alternativos ou Excludentes
+                * TIRM
+        * Índice de Rentabilidade
+        * Ciclos de Vida
+        * Risco e Retorno
+        * Payback Simples ou Contábil
+        * Payback Descontado
+        * Maculay Duration
+        * Índice de Share
